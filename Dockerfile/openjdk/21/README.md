@@ -5,11 +5,11 @@
 基础镜像已包含 `tzdata`，无需重复安装。
 
 ```shell
-# 构建镜像 注：有点慢
-docker build -t registry.cn-hangzhou.aliyuncs.com/zhengqing/openjdk:21 . --no-cache
-
-# 推送镜像
-docker push registry.cn-hangzhou.aliyuncs.com/zhengqing/openjdk:21
+# 构建并推送 amd64、arm64 多架构镜像  注：有点慢
+docker buildx build \
+  --platform linux/amd64,linux/arm64 \
+  -t registry.cn-hangzhou.aliyuncs.com/zhengqing/openjdk:21 \
+  . --no-cache --push
 
 # Dockerfile中引用新镜像
 # FROM registry.cn-hangzhou.aliyuncs.com/zhengqing/openjdk:21
